@@ -1,18 +1,15 @@
-package com.fuzzychin.blog.Beans;
+package com.fuzzychin.blog.bean;
 
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name="Users")
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
     @Column(nullable = false)
