@@ -1,7 +1,5 @@
 package com.fuzzychin.blog.bean;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 
 @Table(name="Users")
@@ -26,7 +24,7 @@ public class User {
 
     //Where do you store passwords????
 
-    protected User(){};
+    public User(){};
 
     public User(long id, String userName, String firstName, String lastName, String emailAdress) {
         this.id = id;

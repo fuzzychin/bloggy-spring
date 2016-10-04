@@ -1,8 +1,5 @@
 package com.fuzzychin.blog.bean;
 
-
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 
 @Table(name="Posts")
@@ -19,7 +16,7 @@ public class Post {
     @Column(nullable = false)
     private String body;
 
-    @Column(nullable = false)
+    @ManyToOne
     private User user;
 
     @Column(nullable = false)
@@ -31,7 +28,7 @@ public class Post {
     @Column(nullable = false)
     private  String deletedOn;
 
-    protected Post(){};
+    public Post(){};
 
     private Post(long id, String title, String body, User user, String createdOn, String modifiedOn, String deletedOn) {
         this.id = id;

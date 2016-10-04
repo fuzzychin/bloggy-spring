@@ -1,11 +1,8 @@
 package com.fuzzychin.blog.bean;
 
-
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 
-@Table(name="Comments")
+@Table(name="comments")
 @Entity
 public class Comment {
 
@@ -29,8 +26,7 @@ public class Comment {
     @Column(nullable = false)
     private  String deletedOn;
 
-    protected Comment(){};
-
+    public Comment(){}
     private Comment(long id, String body, User user, String createdOn, String modifiedOn, String deletedOn) {
         this.id = id;
         this.body = body;

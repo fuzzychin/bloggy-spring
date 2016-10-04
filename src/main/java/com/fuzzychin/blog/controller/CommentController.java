@@ -7,14 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@EnableAutoConfiguration
 @RequestMapping("/api/comment")
 public class CommentController {
 
     static private Logger logger = LoggerFactory.getLogger(CommentController.class);
 
-    public CommentController(){
-    }
+
 
 
 

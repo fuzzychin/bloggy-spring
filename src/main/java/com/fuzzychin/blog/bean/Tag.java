@@ -1,8 +1,5 @@
 package com.fuzzychin.blog.bean;
 
-
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 
 @Table(name="Tags")
@@ -19,7 +16,7 @@ public class Tag {
     @Column(nullable = false)
     private String content;
 
-    protected Tag(){};
+    public Tag(){};
 
     public Tag(long id, String descriptor, String content) {
         this.id = id;
