@@ -14,10 +14,4 @@ public class CommentController {
 
 
 
-
-
-/*    @ResponseBody
-    String home() {
-        return "Hello World!";
-    }*/
 }

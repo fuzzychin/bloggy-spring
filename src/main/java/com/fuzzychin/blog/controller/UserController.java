@@ -13,8 +13,5 @@ public class UserController {
     static private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 
-/*    @ResponseBody
-    String home() {
-        return "Hello World!";
-    }*/
+
 }
