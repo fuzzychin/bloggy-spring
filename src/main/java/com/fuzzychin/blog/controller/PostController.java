@@ -32,8 +32,32 @@ public class PostController {
         //TODO query DB - use findAll()
         List<Post> response = postService.findAll();
 
-        return ResponseEntity.ok("DB Response");
+        //I don't think this is the correct way to put reponse in the body
+        //it actually is if it is a 200 OK response, its a shortcut to ResponseEntity.ok().body(response).build();
+        return ResponseEntity.ok(response);
     }
+    
+        @RequestMapping(path="/", method= RequestMethod.GET)
+    public ResponseEntity<?> queryOnePost(){
+
+        //TODO query DB - use findAll()
+        List<Post> response = postService.findOnePost();
+        return ResponseEntity.ok(response);
+    }
+    
+    @RequestMapping(path="/", method= RequestMethod.GET)
+    public ResponseEntity<?> queryPostsByUser(User user){
+        return ResponseEntity.ok(postService.findAllByUser(user));
+    }
+    
+    @RequestMapping(path="/", method= RequestMethod.POST)
+    public ResponseEntity<?> queryPosts(){
+        
+        return ResponseEntity.ok(postService.save);
+    }
+    
+    
+
 
 
 }

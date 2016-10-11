@@ -8,12 +8,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+//TODO read the link below.
+//http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    List<Post> findAll();
+    /*List<Post> findAll();
+    
+    List<Post> findAllByUser(User user);
 
-    List<Post> findAll(User user);
-
-    List<Post> findAll(Sort sort);
+    Post findOne(Long id);*/
 }
