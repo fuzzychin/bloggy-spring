@@ -1,15 +1,15 @@
 package com.fuzzychin.blog.controller;
 
 import com.fuzzychin.blog.bean.Post;
+import com.fuzzychin.blog.bean.User;
 import com.fuzzychin.blog.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,41 +23,56 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    public PostController(){
+    public PostController() {
     }
 
-    @RequestMapping(path="/", method= RequestMethod.GET)
-    public ResponseEntity<?> queryPost(){
-
-        //TODO query DB - use findAll()
-        List<Post> response = postService.findAll();
-
-        //I don't think this is the correct way to put reponse in the body
-        //it actually is if it is a 200 OK response, its a shortcut to ResponseEntity.ok().body(response).build();
-        return ResponseEntity.ok(response);
+    //Controller Method naming conventions
+    // Query = Find All (return array/list)
+    // Get = Find One
+    // Update
+    // Delete
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public ResponseEntity<?> queryPost() {
+        return ResponseEntity.ok(postService.findAll());
     }
-    
-        @RequestMapping(path="/", method= RequestMethod.GET)
-    public ResponseEntity<?> queryOnePost(){
 
-        //TODO query DB - use findAll()
-        List<Post> response = postService.findOnePost();
-        return ResponseEntity.ok(response);
+    @RequestMapping(path = "/{postId}", method = RequestMethod.GET)
+    public ResponseEntity<?> findPost(@PathVariable("postId") Long postId) {
+        return ResponseEntity.ok(postService.findOnePost(postId));
     }
-    
-    @RequestMapping(path="/", method= RequestMethod.GET)
-    public ResponseEntity<?> queryPostsByUser(User user){
-        return ResponseEntity.ok(postService.findAllByUser(user));
+
+    //We will query all posts by User off of the USER endpoint based on domain context.
+
+    @RequestMapping(path = "/", method = RequestMethod.POST)
+    public ResponseEntity<?> queryPosts(@RequestBody Post post) {
+        return ResponseEntity.ok(postService.save(post));
     }
-    
-    @RequestMapping(path="/", method= RequestMethod.POST)
-    public ResponseEntity<?> queryPosts(){
-        
-        return ResponseEntity.ok(postService.save);
+
+    @RequestMapping(path = "/{postId}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updatePost(@PathVariable("postId") Long postId, @RequestBody Post updatedPost){
+        Post post = postService.findOnePost(postId);
+        if(post!=null){
+            if(!post.getBody().equals(updatedPost.getBody())){
+                post.setBody(updatedPost.getBody());
+            }
+            if(!post.getTitle().equals(updatedPost.getTitle())){
+                post.setTitle(updatedPost.getTitle());
+            }
+            postService.save(post);
+            return ResponseEntity.ok(post);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
-    
-    
 
-
-
+    @RequestMapping(path="/{postId}", method=RequestMethod.DELETE)
+    public ResponseEntity<?> deletePost(@PathVariable("postId") Long postId){
+        Post post = postService.findOnePost(postId);
+        if(post!=null){
+            postService.deletePost(post);
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
