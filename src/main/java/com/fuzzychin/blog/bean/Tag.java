@@ -1,6 +1,7 @@
 package com.fuzzychin.blog.bean;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name="Tags")
 @Entity
@@ -16,12 +17,17 @@ public class Tag {
     @Column(nullable = false)
     private String content;
 
+    @Column
+    @ManyToMany
+    private List<Post> posts;
+
     public Tag(){};
 
-    public Tag(long id, String descriptor, String content) {
+    public Tag(long id, String descriptor, String content, List<Post> posts) {
         this.id = id;
         this.descriptor = descriptor;
         this.content = content;
+        this.posts = posts;
     }
 
     public long getId() {

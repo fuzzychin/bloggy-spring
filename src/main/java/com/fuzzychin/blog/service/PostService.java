@@ -2,18 +2,21 @@ package com.fuzzychin.blog.service;
 
 
 import com.fuzzychin.blog.bean.Post;
+import com.fuzzychin.blog.bean.Tag;
 import com.fuzzychin.blog.bean.User;
 import com.fuzzychin.blog.repository.PostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Repository is for JPA repositories or custom repository implementations.
 //We just need a class that interfaces with the PostRepository (see @Autowired).
+@Service
 public class PostService {
-
     /*
     Because we are creating a Service to play the middleman in the Controller (api endpoint) to Repository (database)
     we can use any naming conventions we want for the methods as they have no "Magic" behind them. The only place that
@@ -32,27 +35,29 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    //see comment in PostRepository.  I don't think this is the right way to do this
-    public List<Post> findAllPostsByUser(User user) {
-        //If doing no manipulations why create a List<Post> to simply return it..
-        //you can do the following: return postRepository.findAllByUser(user);
-        //and accomplish the same thing with less redundant code.
+    public List<Post> findAll(Tag tag) {
+        return postRepository.findByTags(new ArrayList<Tag>(1){{add(tag);}});
+    }
 
-        return postRepository.findAllByUser(user);
+    public List<Post> findAll(List<Tag> tags) {
+        return postRepository.findByTags(tags);
     }
 
     public Post findOnePost(Long postId) {
         return postRepository.findOne(postId);
     }
 
-    public void deletePost(Post post){
+    public void deletePost(Post post) {
         postRepository.delete(post);
     }
 
-    public Post save(Post post){
+    public Post save(Post post) {
         return postRepository.save(post);
     }
-    public List<Post> save(List<Post> posts){
+
+    public List<Post> save(List<Post> posts) {
         return postRepository.save(posts);
     }
+
+
 }

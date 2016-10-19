@@ -1,7 +1,7 @@
 package com.fuzzychin.blog.controller;
 
 import com.fuzzychin.blog.bean.Post;
-import com.fuzzychin.blog.bean.User;
+import com.fuzzychin.blog.bean.Tag;
 import com.fuzzychin.blog.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Arrays;
 
 @RestController
 @EnableAutoConfiguration
@@ -23,16 +23,19 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    public PostController() {
-    }
-
     //Controller Method naming conventions
     // Query = Find All (return array/list)
     // Get = Find One
     // Update
     // Delete
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ResponseEntity<?> queryPost() {
+    public ResponseEntity<?> queryPost(
+            @RequestParam(required = false, name = "tags") Tag[] tags) {
+
+        if (tags != null && tags.length > 0) {
+            return ResponseEntity.ok(postService.findAll(Arrays.asList(tags)));
+        }
+
         return ResponseEntity.ok(postService.findAll());
     }
 
@@ -49,29 +52,29 @@ public class PostController {
     }
 
     @RequestMapping(path = "/{postId}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updatePost(@PathVariable("postId") Long postId, @RequestBody Post updatedPost){
+    public ResponseEntity<?> updatePost(@PathVariable("postId") Long postId, @RequestBody Post updatedPost) {
         Post post = postService.findOnePost(postId);
-        if(post!=null){
-            if(!post.getBody().equals(updatedPost.getBody())){
+        if (post != null) {
+            if (!post.getBody().equals(updatedPost.getBody())) {
                 post.setBody(updatedPost.getBody());
             }
-            if(!post.getTitle().equals(updatedPost.getTitle())){
+            if (!post.getTitle().equals(updatedPost.getTitle())) {
                 post.setTitle(updatedPost.getTitle());
             }
             postService.save(post);
             return ResponseEntity.ok(post);
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
-    @RequestMapping(path="/{postId}", method=RequestMethod.DELETE)
-    public ResponseEntity<?> deletePost(@PathVariable("postId") Long postId){
+    @RequestMapping(path = "/{postId}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deletePost(@PathVariable("postId") Long postId) {
         Post post = postService.findOnePost(postId);
-        if(post!=null){
+        if (post != null) {
             postService.deletePost(post);
             return ResponseEntity.ok().build();
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

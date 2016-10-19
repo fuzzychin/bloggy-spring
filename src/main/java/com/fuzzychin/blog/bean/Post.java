@@ -1,6 +1,7 @@
 package com.fuzzychin.blog.bean;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name="Posts")
 @Entity
@@ -16,8 +17,13 @@ public class Post {
     @Column(nullable = false)
     private String body;
 
+    @Column
     @ManyToOne
     private User user;
+
+    @Column
+    @ManyToMany
+    private List<Tag> tags;
 
     @Column(nullable = false)
     private  String createdOn;
@@ -30,11 +36,12 @@ public class Post {
 
     public Post(){};
 
-    private Post(long id, String title, String body, User user, String createdOn, String modifiedOn, String deletedOn) {
+    private Post(long id, String title, String body, User user, List<Tag> tags, String createdOn, String modifiedOn, String deletedOn) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.user = user;
+        this.tags = tags;
         this.createdOn = createdOn;
         this.modifiedOn = modifiedOn;
         this.deletedOn = deletedOn;
@@ -70,6 +77,14 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     public String getCreatedOn() {
