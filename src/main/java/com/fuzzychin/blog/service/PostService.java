@@ -1,9 +1,9 @@
 package com.fuzzychin.blog.service;
 
 
+import com.fuzzychin.blog.bean.Comment;
 import com.fuzzychin.blog.bean.Post;
 import com.fuzzychin.blog.bean.Tag;
-import com.fuzzychin.blog.bean.User;
 import com.fuzzychin.blog.repository.PostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +42,12 @@ public class PostService {
     public List<Post> findAll(List<Tag> tags) {
         return postRepository.findByTags(tags);
     }
+
+    public Post findAll(Comment comment) { return postRepository.findByComments(new ArrayList<Comment>(1){
+        {add(comment);}}); }
+
+    //originally named findAll but got an error saying it had same erasure as findAll(List<Tag> tags)
+    public Post findAllComments(List<Comment> comments) { return postRepository.findByComments(comments);}
 
     public Post findOnePost(Long postId) {
         return postRepository.findOne(postId);

@@ -1,6 +1,7 @@
 package com.fuzzychin.blog.bean;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name="Users")
 @Entity
@@ -22,16 +23,27 @@ public class User {
     @Column(nullable = false)
     private String emailAdress;
 
+    @Column
+    @OneToMany
+    private List<Post> posts;
+
+    @Column
+    @OneToMany
+    private List<Comment> comments;
+
     //Where do you store passwords????
 
     public User(){};
 
-    public User(long id, String userName, String firstName, String lastName, String emailAdress) {
+    public User(long id, String userName, String firstName, String lastName, String emailAdress, List<Post> posts,
+                List<Comment> comments) {
         this.id = id;
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAdress = emailAdress;
+        this.posts = posts;
+        this.comments = comments;
     }
 
     public long getId() {
@@ -72,5 +84,21 @@ public class User {
 
     public void setEmailAdress(String emailAdress) {
         this.emailAdress = emailAdress;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

@@ -17,6 +17,10 @@ public class Comment {
     @Column(nullable = false)
     private User user;
 
+    @Column
+    @ManyToOne
+    private Post post;
+
     @Column(nullable = false)
     private  String createdOn;
 
@@ -27,10 +31,11 @@ public class Comment {
     private  String deletedOn;
 
     public Comment(){}
-    private Comment(long id, String body, User user, String createdOn, String modifiedOn, String deletedOn) {
+    private Comment(long id, String body, User user, Post post, String createdOn, String modifiedOn, String deletedOn) {
         this.id = id;
         this.body = body;
         this.user = user;
+        this.post = post;
         this.createdOn = createdOn;
         this.modifiedOn = modifiedOn;
         this.deletedOn = deletedOn;
@@ -58,6 +63,14 @@ public class Comment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public String getCreatedOn() {

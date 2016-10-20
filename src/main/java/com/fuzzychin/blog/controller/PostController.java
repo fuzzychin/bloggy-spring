@@ -29,19 +29,12 @@ public class PostController {
     // Update
     // Delete
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ResponseEntity<?> queryPost(
-            @RequestParam(required = false, name = "tags") Tag[] tags) {
+    public ResponseEntity<?> queryPost(@RequestParam(required = false, name = "tags") Tag[] tags) {
 
-        if (tags != null && tags.length > 0) {
+        if (tags != null && tags.length > 0)
             return ResponseEntity.ok(postService.findAll(Arrays.asList(tags)));
-        }
 
         return ResponseEntity.ok(postService.findAll());
-    }
-
-    @RequestMapping(path = "/{postId}", method = RequestMethod.GET)
-    public ResponseEntity<?> findPost(@PathVariable("postId") Long postId) {
-        return ResponseEntity.ok(postService.findOnePost(postId));
     }
 
     //We will query all posts by User off of the USER endpoint based on domain context.
