@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     public UserService userService;
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> queryPost(@RequestParam(required = false, name = "post")Post[] posts) {
 
         if(posts !=null && posts.length>0)
@@ -31,7 +31,7 @@ public class UserController {
         return ResponseEntity.ok(userService.findAll());
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> queryUsers(@RequestBody User user) {
         return ResponseEntity.ok(userService.save(user));
     }
@@ -49,8 +49,8 @@ public class UserController {
             if (!user.getUserName().equals(updatedUser.getUserName())) {
                 user.setUserName(updatedUser.getUserName());
             }
-            if (!user.getEmailAdress().equals(updatedUser.getEmailAdress())) {
-                user.setEmailAdress(updatedUser.getEmailAdress());
+            if (!user.getEmailAddress().equals(updatedUser.getEmailAddress())) {
+                user.setEmailAddress(updatedUser.getEmailAddress());
             }
             userService.save(user);
             return ResponseEntity.ok(user);

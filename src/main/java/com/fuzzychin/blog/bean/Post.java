@@ -26,13 +26,13 @@ public class Post {
     @ManyToMany
     private List<Tag> tags;
 
-    @Column(nullable = false)
+    @Column
     private String createdOn;
 
-    @Column(nullable = false)
+    @Column
     private String modifiedOn;
 
-    @Column(nullable = false)
+    @Column
     private String deletedOn;
 
     public Post() {

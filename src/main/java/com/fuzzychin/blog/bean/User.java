@@ -23,9 +23,10 @@ public class User {
     @Column(nullable = false)
     private String emailAddress;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
+    @Column
     @OneToMany
     private List<Comment> comments;
 
@@ -33,13 +34,13 @@ public class User {
 
     public User(){};
 
-    public User(long id, String userName, String firstName, String lastName, String emailAdress, List<Post> posts,
+    public User(long id, String userName, String firstName, String lastName, String emailAddress, List<Post> posts,
                 List<Comment> comments) {
         this.id = id;
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.emailAddress = emailAdress;
+        this.emailAddress = emailAddress;
         this.posts = posts;
         this.comments = comments;
     }
@@ -76,12 +77,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmailAdress() {
+    public String getEmailAddress() {
         return emailAddress;
     }
 
-    public void setEmailAdress(String emailAdress) {
-        this.emailAddress = emailAdress;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public List<Post> getPosts() {

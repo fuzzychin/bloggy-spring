@@ -28,7 +28,7 @@ public class PostController {
     // Get = Find One
     // Update
     // Delete
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> queryPost(@RequestParam(required = false, name = "tags") Tag[] tags) {
 
         if (tags != null && tags.length > 0)
@@ -39,7 +39,7 @@ public class PostController {
 
     //We will query all posts by User off of the USER endpoint based on domain context.
 
-    @RequestMapping(path = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> queryPosts(@RequestBody Post post) {
         return ResponseEntity.ok(postService.save(post));
     }
