@@ -14,10 +14,9 @@ public class Comment {
     @Column(nullable = false)
     private String body;
 
-    @Column(nullable = false)
+    @ManyToOne
     private User user;
 
-    @Column
     @ManyToOne
     private Post post;
 

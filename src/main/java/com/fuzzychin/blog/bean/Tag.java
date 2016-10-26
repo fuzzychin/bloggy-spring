@@ -17,7 +17,6 @@ public class Tag {
     @Column(nullable = false)
     private String content;
 
-    @Column
     @ManyToMany
     private List<Post> posts;
 

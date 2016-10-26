@@ -21,13 +21,11 @@ public class User {
     private String lastName;
 
     @Column(nullable = false)
-    private String emailAdress;
+    private String emailAddress;
 
-    @Column
     @OneToMany
     private List<Post> posts;
 
-    @Column
     @OneToMany
     private List<Comment> comments;
 
@@ -41,7 +39,7 @@ public class User {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.emailAdress = emailAdress;
+        this.emailAddress = emailAdress;
         this.posts = posts;
         this.comments = comments;
     }
@@ -79,11 +77,11 @@ public class User {
     }
 
     public String getEmailAdress() {
-        return emailAdress;
+        return emailAddress;
     }
 
     public void setEmailAdress(String emailAdress) {
-        this.emailAdress = emailAdress;
+        this.emailAddress = emailAdress;
     }
 
     public List<Post> getPosts() {

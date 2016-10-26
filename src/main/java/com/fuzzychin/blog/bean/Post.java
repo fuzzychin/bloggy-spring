@@ -17,15 +17,12 @@ public class Post {
     @Column(nullable = false)
     private String body;
 
-    @Column
     @ManyToOne
     private User user;
 
-    @Column
     @OneToMany
     private List<Comment> comments;
 
-    @Column
     @ManyToMany
     private List<Tag> tags;
 
