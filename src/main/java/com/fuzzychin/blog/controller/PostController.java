@@ -44,6 +44,12 @@ public class PostController {
         return ResponseEntity.ok(postService.save(post));
     }
 
+    @RequestMapping(path = "/{postId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getPost(@PathVariable("postId") Long postId){
+        return ResponseEntity.ok(postService.findOnePost(postId));
+    }
+
+
     @RequestMapping(path = "/{postId}", method = RequestMethod.PUT)
     public ResponseEntity<?> updatePost(@PathVariable("postId") Long postId, @RequestBody Post updatedPost) {
         Post post = postService.findOnePost(postId);

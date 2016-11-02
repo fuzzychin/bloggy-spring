@@ -23,15 +23,6 @@ public class UserService {
 
     public List<User> findAll() { return userRepository.findAll(); }
 
-    public User findAll(Post post)  {
-        return userRepository.findByPosts(new ArrayList<Post>(1){{add(post);}});
-    }
-
-    public User findAll(List<Post> posts) { return userRepository.findByPosts(posts); }
-
-    //Again not overriding findAll() method because below method has same erasure as above findAll() method
-    public User findAllByComment(List<Comment> comments)   { return userRepository.findByComments(comments); }
-
     public User findOneUser(Long userId) {
         return userRepository.findOne(userId);
     }

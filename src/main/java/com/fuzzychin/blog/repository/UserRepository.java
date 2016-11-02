@@ -12,7 +12,4 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByPosts(List<Post> post);
-
-    User findByComments(List<Comment> comment);
 }

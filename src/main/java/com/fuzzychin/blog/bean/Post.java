@@ -20,7 +20,7 @@ public class Post {
     @ManyToOne
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
     @ManyToMany

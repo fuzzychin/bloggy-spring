@@ -23,11 +23,7 @@ public class UserController {
     public UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> queryPost(@RequestParam(required = false, name = "post")Post[] posts) {
-
-        if(posts !=null && posts.length>0)
-            return ResponseEntity.ok(userService.findAll(Arrays.asList(posts)));
-
+    public ResponseEntity<?> queryPost() {
         return ResponseEntity.ok(userService.findAll());
     }
 

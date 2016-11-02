@@ -23,13 +23,6 @@ public class User {
     @Column(nullable = false)
     private String emailAddress;
 
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts;
-
-    @Column
-    @OneToMany
-    private List<Comment> comments;
-
     //Where do you store passwords????
 
     public User(){};
@@ -41,8 +34,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
-        this.posts = posts;
-        this.comments = comments;
+
     }
 
     public long getId() {
@@ -85,19 +77,4 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 }
