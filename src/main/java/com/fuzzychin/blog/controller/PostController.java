@@ -31,8 +31,9 @@ public class PostController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> queryPost(@RequestParam(required = false, name = "tags") Tag[] tags) {
 
-        if (tags != null && tags.length > 0)
+        if (tags != null && tags.length > 0) {
             return ResponseEntity.ok(postService.findAll(Arrays.asList(tags)));
+        }
 
         return ResponseEntity.ok(postService.findAll());
     }
@@ -40,7 +41,7 @@ public class PostController {
     //We will query all posts by User off of the USER endpoint based on domain context.
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> queryPosts(@RequestBody Post post) {
+    public ResponseEntity<?> createPosts(@RequestBody Post post) {
         return ResponseEntity.ok(postService.save(post));
     }
 
@@ -77,4 +78,10 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @RequestMapping(path = "/user/{userId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getPostsByUserId(@PathVariable("userId") Long userId){
+        return ResponseEntity.ok(postService.findPostsByUserId(userId));
+    }
+
 }

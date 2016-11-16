@@ -23,12 +23,12 @@ public class UserController {
     public UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> queryPost() {
+    public ResponseEntity<?> queryUser() {
         return ResponseEntity.ok(userService.findAll());
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> queryUsers(@RequestBody User user) {
+    public ResponseEntity<?> createUsers(@RequestBody User user) {
         return ResponseEntity.ok(userService.save(user));
     }
 

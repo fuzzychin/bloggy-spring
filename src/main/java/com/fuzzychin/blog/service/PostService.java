@@ -49,7 +49,7 @@ public class PostService {
     //originally named findAll but got an error saying it had same erasure as findAll(List<Tag> tags)
     public Post findAllComments(List<Comment> comments) { return postRepository.findByComments(comments);}
 
-    public Post findOnePost(Long postId) {
+    public Post findOnePost(long postId) {
         return postRepository.findOne(postId);
     }
 
@@ -64,6 +64,8 @@ public class PostService {
     public List<Post> save(List<Post> posts) {
         return postRepository.save(posts);
     }
+
+    public List<Post> findPostsByUserId(long userId) {return postRepository.findByUserId(userId); }
 
 
 }
