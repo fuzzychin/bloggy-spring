@@ -1,9 +1,6 @@
 package com.fuzzychin.blog.service;
 
 
-import com.fuzzychin.blog.bean.Comment;
-import com.fuzzychin.blog.bean.Post;
-import com.fuzzychin.blog.bean.Tag;
 import com.fuzzychin.blog.bean.User;
 import com.fuzzychin.blog.repository.UserRepository;
 import org.slf4j.Logger;
@@ -11,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

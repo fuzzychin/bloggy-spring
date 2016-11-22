@@ -30,7 +30,6 @@ public class PostService {
     @Autowired
     public PostRepository postRepository;
 
-
     public List<Post> findAll() {
         return postRepository.findAll();
     }

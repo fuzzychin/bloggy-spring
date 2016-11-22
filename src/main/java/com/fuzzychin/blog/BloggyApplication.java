@@ -1,8 +1,10 @@
 package com.fuzzychin.blog;
 
 import com.fuzzychin.blog.bean.Post;
+import com.fuzzychin.blog.bean.Tag;
 import com.fuzzychin.blog.bean.User;
 import com.fuzzychin.blog.repository.PostRepository;
+import com.fuzzychin.blog.repository.TagRepository;
 import com.fuzzychin.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -31,12 +33,23 @@ class SeedUser implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		User user = new User();
-		user.setUserName("FuzzyChinSeed");
-		user.setFirstName("Fuzzy");
-		user.setLastName("Fuzzy");
-		user.setEmailAddress("FuzzyChin@gmail.com");
-		userRepository.save(user);
+		for (int i=0; i<10; i++) {
+			User user = new User();
+			user.setUserName(String.format("%d%s", i,"FuzzyChinSeed"));
+			user.setFirstName(String.format("%d%s", i, "Fuzzy"));
+			user.setLastName(String.format("%d%s", i, "Fuzzy"));
+			user.setEmailAddress(String.format("%d%s", i, "FuzzyChin@gmail.com"));
+			userRepository.save(user);
+		}
+
+		for (int i=0; i<10; i++) {
+			User user = new User();
+			user.setUserName(String.format("%d%s", i,"PinkySeed"));
+			user.setFirstName(String.format("%d%s", i, "Pinky"));
+			user.setLastName(String.format("%d%s", i, "Brain"));
+			user.setEmailAddress(String.format("%d%s", i, "PinkyAndTheBrain@gmail.com"));
+			userRepository.save(user);
+		}
 	}
 }
 
@@ -51,10 +64,37 @@ class SeedPosts implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		Post post = new Post();
-		post.setBody("Seeded Post");
-		post.setTitle("Seeded Title");
-		post.setUser(userRepository.findOne((long) 1));
-		postRepository.save(post);
+		for (int i=0; i<10; i++) {
+			Post post = new Post();
+			post.setBody(String.format("%d%s", i , "Seeded Fuzzy Post"));
+			post.setTitle(String.format("%d%s", i, "Seeded Fuzzy Title"));
+			post.setUser(userRepository.findOne((long) 1));
+			postRepository.save(post);
+		}
+
+		for (int i=0; i<10; i++) {
+			Post post = new Post();
+			post.setBody(String.format("%d%s", i , "Seeded Pinky Post"));
+			post.setTitle(String.format("%d%s", i, "Seeded Pinky Title"));
+			post.setUser(userRepository.findOne((long) 2));
+			postRepository.save(post);
+		}
+	}
+}
+
+@Component
+class SeedTags implements CommandLineRunner{
+
+	@Autowired
+	private TagRepository tagRepository;
+
+	@Override
+	public void run(String... args) throws Exception {
+		for (int i=0; i<10; i++) {
+			Tag tag = new Tag();
+			tag.setDescriptor(String.format("%d%s", i,"TagDescSeed"));
+			tag.setContent(String.format("%d%s", i, "TagContentSeed"));
+			tagRepository.save(tag);
+		}
 	}
 }
