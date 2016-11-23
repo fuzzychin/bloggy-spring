@@ -1,8 +1,9 @@
 package com.fuzzychin.blog.bean;
 
 import javax.persistence.*;
+import java.util.Date;
 
-@Table(name="comments")
+@Table(name = "comments")
 @Entity
 public class Comment {
 
@@ -20,18 +21,23 @@ public class Comment {
     @ManyToOne
     private Post post;
 
-    //@Column(nullable = false)
-    private  String createdOn;
+    @Column(name = "created_on", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
 
-    //@Column(nullable = false)
-    private  String modifiedOn;
+    @Column(name = "modified_on", nullable = false, insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedOn;
 
-    //@Column(nullable = false)
-    private  String deletedOn;
+    @Column(name = "deleted_on", insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date deletedOn;
 
-    public Comment(){}
+    public Comment() {
+    }
 
-    public Comment(String body, User user, Post post, String createdOn, String modifiedOn, String deletedOn) {
+    private Comment(long id, String body, User user, Post post, Date createdOn, Date modifiedOn, Date deletedOn) {
+        this.id = id;
         this.body = body;
         this.user = user;
         this.post = post;
@@ -43,6 +49,13 @@ public class Comment {
         this.body = body;
         this.user = user;
         this.post = post;
+    }
+
+    @PrePersist
+    private void updateModifiedOn(){
+        if(this.modifiedOn!=null){
+            this.modifiedOn = new Date();
+        }
     }
 
     public long getId() {
@@ -73,27 +86,27 @@ public class Comment {
         this.post = post;
     }
 
-    public String getCreatedOn() {
+    public Date getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(String createdOn) {
+    public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
 
-    public String getModifiedOn() {
+    public Date getModifiedOn() {
         return modifiedOn;
     }
 
-    public void setModifiedOn(String modifiedOn) {
+    public void setModifiedOn(Date modifiedOn) {
         this.modifiedOn = modifiedOn;
     }
 
-    public String getDeletedOn() {
+    public Date getDeletedOn() {
         return deletedOn;
     }
 
-    public void setDeletedOn(String deletedOn) {
+    public void setDeletedOn(Date deletedOn) {
         this.deletedOn = deletedOn;
     }
 }
