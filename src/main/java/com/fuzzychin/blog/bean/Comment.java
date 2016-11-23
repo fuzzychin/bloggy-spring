@@ -25,7 +25,7 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
 
-    @Column(name = "modified_on", nullable = false, insertable = false)
+    @Column(name = "modified_on", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedOn;
 
@@ -52,10 +52,12 @@ public class Comment {
     }
 
     @PrePersist
-    private void updateModifiedOn(){
-        if(this.modifiedOn!=null){
-            this.modifiedOn = new Date();
+    private void onSave(){
+        if(this.createdOn==null){
+            this.createdOn = new Date();
         }
+
+        this.modifiedOn = new Date();
     }
 
     public long getId() {
