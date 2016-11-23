@@ -1,8 +1,10 @@
 package com.fuzzychin.blog;
 
+import com.fuzzychin.blog.bean.Comment;
 import com.fuzzychin.blog.bean.Post;
 import com.fuzzychin.blog.bean.Tag;
 import com.fuzzychin.blog.bean.User;
+import com.fuzzychin.blog.repository.CommentRepository;
 import com.fuzzychin.blog.repository.PostRepository;
 import com.fuzzychin.blog.repository.TagRepository;
 import com.fuzzychin.blog.repository.UserRepository;
@@ -83,18 +85,43 @@ class SeedPosts implements CommandLineRunner{
 }
 
 @Component
-class SeedTags implements CommandLineRunner{
+class SeedTags implements CommandLineRunner {
 
 	@Autowired
 	private TagRepository tagRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
-		for (int i=0; i<10; i++) {
+		for (int i = 0; i < 10; i++) {
 			Tag tag = new Tag();
-			tag.setDescriptor(String.format("%d%s", i,"TagDescSeed"));
+			tag.setDescriptor(String.format("%d%s", i, "TagDescSeed"));
 			tag.setContent(String.format("%d%s", i, "TagContentSeed"));
 			tagRepository.save(tag);
+		}
+	}
+}
+
+@Component
+class seedComments implements CommandLineRunner{
+
+	@Autowired
+	private PostRepository postRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private CommentRepository commentRepository;
+
+ 	@Override
+	public void run(String... args) throws Exception{
+		for(int i=0; i<10; i++){
+			Comment comment = new Comment(
+					String.format("%d%s", i, "CommentSeed"),
+					userRepository.findOne((long) 1),
+					postRepository.findOne((long) 1)
+			);
+			commentRepository.save(comment);
 		}
 	}
 }

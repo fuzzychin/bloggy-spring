@@ -20,18 +20,18 @@ public class Comment {
     @ManyToOne
     private Post post;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private  String createdOn;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private  String modifiedOn;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private  String deletedOn;
 
     public Comment(){}
-    private Comment(long id, String body, User user, Post post, String createdOn, String modifiedOn, String deletedOn) {
-        this.id = id;
+
+    public Comment(String body, User user, Post post, String createdOn, String modifiedOn, String deletedOn) {
         this.body = body;
         this.user = user;
         this.post = post;
@@ -39,13 +39,14 @@ public class Comment {
         this.modifiedOn = modifiedOn;
         this.deletedOn = deletedOn;
     }
+    public Comment(String body, User user, Post post) {
+        this.body = body;
+        this.user = user;
+        this.post = post;
+    }
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getBody() {

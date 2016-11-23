@@ -18,7 +18,6 @@ public class TagService {
     @Autowired
     public TagRepository tagRepository;
 
-
     public List<Tag> findAll() {
         return tagRepository.findAll();
     }
