@@ -1,6 +1,7 @@
 package com.fuzzychin.blog.bean;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 import java.util.Date;
 
 @Table(name = "comments")
@@ -15,10 +16,10 @@ public class Comment {
     @Column(nullable = false)
     private String body;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
     @Column(name = "created_on", nullable = false, updatable = false)
@@ -33,10 +34,9 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedOn;
 
-    public Comment() {
-    }
+    public Comment(){};
 
-    private Comment(long id, String body, User user, Post post, Date createdOn, Date modifiedOn, Date deletedOn) {
+    public Comment(long id, String body, User user, Post post, Date createdOn, Date modifiedOn, Date deletedOn) {
         this.id = id;
         this.body = body;
         this.user = user;

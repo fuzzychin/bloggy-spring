@@ -21,6 +21,14 @@ public class CommentService {
 
     public Comment  findOneComment(long commentId) {return commentRepository.findOne(commentId);}
 
+    public List<Comment> findAllByUser(long userId) {
+        return commentRepository.findByUserId(userId);
+    }
+
+    public List<Comment> findAllByPost(long postId) {
+        return commentRepository.findByPostId(postId);
+    }
+
     public void deleteComment(Comment comment) {commentRepository.delete(comment);}
 
     public Comment save(Comment comment) {return commentRepository.save(comment);}

@@ -67,18 +67,20 @@ class SeedPosts implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		for (int i=0; i<10; i++) {
-			Post post = new Post();
-			post.setBody(String.format("%d%s", i , "Seeded Fuzzy Post"));
-			post.setTitle(String.format("%d%s", i, "Seeded Fuzzy Title"));
-			post.setUser(userRepository.findOne((long) 1));
+			Post post = new Post(
+			String.format("%d%s", i, "Seeded Fuzzy Title"),
+			String.format("%d%s", i, "Seeded Fuzzy Post"),
+			userRepository.findOne((long) 1)
+			);
 			postRepository.save(post);
 		}
 
 		for (int i=0; i<10; i++) {
-			Post post = new Post();
-			post.setBody(String.format("%d%s", i , "Seeded Pinky Post"));
-			post.setTitle(String.format("%d%s", i, "Seeded Pinky Title"));
-			post.setUser(userRepository.findOne((long) 2));
+			Post post = new Post(
+			String.format("%d%s", i, "Seeded Pinky Title"),
+			String.format("%d%s", i, "Seeded Pinky Post"),
+			userRepository.findOne((long) 2)
+			);
 			postRepository.save(post);
 		}
 	}

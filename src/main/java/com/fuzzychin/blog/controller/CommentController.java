@@ -1,6 +1,8 @@
 package com.fuzzychin.blog.controller;
 
 import com.fuzzychin.blog.bean.Comment;
+import com.fuzzychin.blog.bean.Post;
+import com.fuzzychin.blog.bean.User;
 import com.fuzzychin.blog.service.CommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +22,13 @@ public class CommentController {
     public CommentService commentService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> queryComment() {
+    public ResponseEntity<?> queryComment(@RequestParam(required = false, name = "userId") Long userId,
+                                          @RequestParam(required = false, name = "postId") Long postId) {
+        if (userId != null){
+            ResponseEntity.ok(commentService.findAllByUser(userId));
+        } else if (postId != null){
+            ResponseEntity.ok(commentService.findAllByPost(postId));
+        }
         return ResponseEntity.ok(commentService.findAll());
     }
 
@@ -36,7 +44,6 @@ public class CommentController {
             if (!comment.getBody().equals(updatedComment.getBody())) {
                 comment.setBody(updatedComment.getBody());
             }
-
             commentService.save(comment);
             return ResponseEntity.ok(comment);
         } else {
@@ -57,7 +64,7 @@ public class CommentController {
 
     }
 
-    @RequestMapping(path = "/comment/{commentId)", method = RequestMethod.GET)
+    @RequestMapping(path = "/{commentId}", method = RequestMethod.GET)
     public ResponseEntity<?> queryCommentByCommentId(@PathVariable("commentId")Long commentId){
         return ResponseEntity.ok(commentService.findOneComment(commentId));
     }

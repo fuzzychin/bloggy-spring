@@ -1,5 +1,6 @@
 package com.fuzzychin.blog.controller;
 
+import com.fuzzychin.blog.bean.Comment;
 import com.fuzzychin.blog.bean.Post;
 import com.fuzzychin.blog.bean.Tag;
 import com.fuzzychin.blog.service.PostService;
@@ -29,10 +30,13 @@ public class PostController {
     // Update
     // Delete
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> queryPost(@RequestParam(required = false, name = "tags") Tag[] tags) {
+    public ResponseEntity<?> queryPost(@RequestParam(required = false, name = "tags") Tag[] tags,
+                                       @RequestParam(required = false, name = "comments")  Comment[] comments) {
 
         if (tags != null && tags.length > 0) {
             return ResponseEntity.ok(postService.findAll(Arrays.asList(tags)));
+        } else if (comments != null && comments.length > 0) {
+            return ResponseEntity.ok(postService.findAllComments(Arrays.asList(comments)));
         }
 
         return ResponseEntity.ok(postService.findAll());
@@ -79,7 +83,7 @@ public class PostController {
         }
     }
 
-    @RequestMapping(path = "/user/{userId}", method = RequestMethod.GET)
+    @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
     public ResponseEntity<?> getPostsByUserId(@PathVariable("userId") Long userId){
         return ResponseEntity.ok(postService.findPostsByUserId(userId));
     }
