@@ -16,6 +16,9 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootApplication
 public class BloggyApplication {
 
@@ -86,18 +89,55 @@ class SeedPosts implements CommandLineRunner{
 	}
 }
 
+/*@Component
+class SeedTags implements CommandLineRunner {
+
+	@Autowired
+	private TagRepository tagRepository;
+
+	@Autowired
+	private PostRepository postRepository;
+
+	@Override
+	public void run(String... args) throws Exception {
+		List<Post> posts = new ArrayList<>();
+		posts.add(postRepository.findOne((long) 1));
+		posts.add(postRepository.findOne((long) 2));
+
+		for (int i = 0; i < 10; i++) {
+			Tag tag = new Tag();
+			tag.setDescriptor(String.format("%d%s", i, "TagDescSeed"));
+			tag.setContent(String.format("%d%s", i, "TagContentSeed"));
+			tag.setPosts(posts);
+			tagRepository.save(tag);
+		}
+	}
+}*/
+
+
+// I don't understand why the TAGS table isn't seeding with POST_ID???
+//The @Component seedComments is very similar code and the COMMENT table has a POST_ID and USER_ID
 @Component
 class SeedTags implements CommandLineRunner {
 
 	@Autowired
 	private TagRepository tagRepository;
 
+	@Autowired
+	private PostRepository postRepository;
+
 	@Override
 	public void run(String... args) throws Exception {
+		List<Post> posts = new ArrayList<>();
+		posts.add(postRepository.findOne((long) 1));
+		posts.add(postRepository.findOne((long) 2));
+
 		for (int i = 0; i < 10; i++) {
-			Tag tag = new Tag();
-			tag.setDescriptor(String.format("%d%s", i, "TagDescSeed"));
-			tag.setContent(String.format("%d%s", i, "TagContentSeed"));
+			Tag tag = new Tag(
+				String.format("%d%s", i, "TagDescSeed"),
+				String.format("%d%s", i, "TagContentSeed"),
+				posts
+			);
 			tagRepository.save(tag);
 		}
 	}

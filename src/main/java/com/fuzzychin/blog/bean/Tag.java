@@ -22,8 +22,7 @@ public class Tag {
 
     public Tag(){};
 
-    public Tag(long id, String descriptor, String content, List<Post> posts) {
-        this.id = id;
+    public Tag(String descriptor, String content, List<Post> posts) {
         this.descriptor = descriptor;
         this.content = content;
         this.posts = posts;
@@ -47,5 +46,13 @@ public class Tag {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }
