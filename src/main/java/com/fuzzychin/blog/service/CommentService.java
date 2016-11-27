@@ -19,6 +19,10 @@ public class CommentService {
 
     public List<Comment> findAll() {return commentRepository.findAll();}
 
+    public void deleteComment(Comment comment) {commentRepository.delete(comment);}
+
+    public Comment save(Comment comment) {return commentRepository.save(comment);}
+
     public Comment  findOneComment(long commentId) {return commentRepository.findOne(commentId);}
 
     public List<Comment> findAllByUser(long userId) {
@@ -28,10 +32,6 @@ public class CommentService {
     public List<Comment> findAllByPost(long postId) {
         return commentRepository.findByPostId(postId);
     }
-
-    public void deleteComment(Comment comment) {commentRepository.delete(comment);}
-
-    public Comment save(Comment comment) {return commentRepository.save(comment);}
 
     public List<Comment> save(List<Comment> listOfComments) {return commentRepository.save(listOfComments);}
 

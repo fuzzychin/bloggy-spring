@@ -20,16 +20,16 @@ public class UserService {
 
     public List<User> findAll() { return userRepository.findAll(); }
 
-    public User findOneUser(Long userId) {
-        return userRepository.findOne(userId);
-    }
-
     public void deleteUser(User user) {
         userRepository.delete(user);
     }
 
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    public User findOneUser(Long userId) {
+        return userRepository.findOne(userId);
     }
 
     public List<User> save(List<User> user) {

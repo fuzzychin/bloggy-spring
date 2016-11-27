@@ -1,6 +1,7 @@
 package com.fuzzychin.blog.service;
 
 
+import com.fuzzychin.blog.bean.Post;
 import com.fuzzychin.blog.bean.Tag;
 import com.fuzzychin.blog.repository.TagRepository;
 import org.slf4j.Logger;
@@ -22,10 +23,6 @@ public class TagService {
         return tagRepository.findAll();
     }
 
-    public Tag findOneTag(Long tagId) {
-        return tagRepository.findOne(tagId);
-    }
-
     public void deleteTag(Tag tag) {
         tagRepository.delete(tag);
     }
@@ -33,6 +30,12 @@ public class TagService {
     public Tag save(Tag tag) {
         return tagRepository.save(tag);
     }
+
+    public Tag findOneTag(Long tagId) {
+        return tagRepository.findOne(tagId);
+    }
+
+    public List<Tag> findAllByPosts(List<Post> posts) { return tagRepository.findByPosts(posts); }
 
     public List<Tag> save(List<Tag> tags) {
         return tagRepository.save(tags);

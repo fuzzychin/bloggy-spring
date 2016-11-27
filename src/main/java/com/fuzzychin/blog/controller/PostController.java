@@ -36,24 +36,16 @@ public class PostController {
         if (tags != null && tags.length > 0) {
             return ResponseEntity.ok(postService.findAll(Arrays.asList(tags)));
         } else if (comments != null && comments.length > 0) {
-            return ResponseEntity.ok(postService.findAllComments(Arrays.asList(comments)));
+            return ResponseEntity.ok(postService.findOnePostByComments(Arrays.asList(comments)));
         }
 
         return ResponseEntity.ok(postService.findAll());
     }
 
-    //We will query all posts by User off of the USER endpoint based on domain context.
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> createPosts(@RequestBody Post post) {
         return ResponseEntity.ok(postService.save(post));
     }
-
-    @RequestMapping(path = "/{postId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getPost(@PathVariable("postId") Long postId){
-        return ResponseEntity.ok(postService.findOnePost(postId));
-    }
-
 
     @RequestMapping(path = "/{postId}", method = RequestMethod.PUT)
     public ResponseEntity<?> updatePost(@PathVariable("postId") Long postId, @RequestBody Post updatedPost) {
@@ -83,8 +75,15 @@ public class PostController {
         }
     }
 
+    @RequestMapping(path = "/{postId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getPost(@PathVariable("postId") Long postId){
+        return ResponseEntity.ok(postService.findOnePost(postId));
+    }
+
+    //I think the below method may have to be replaced by a @RequestParam because how would the application know the
+    //difference between
     @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getPostsByUserId(@PathVariable("userId") Long userId){
+    public ResponseEntity<?> queryPostsByUserId(@PathVariable("userId") Long userId){
         return ResponseEntity.ok(postService.findPostsByUserId(userId));
     }
 

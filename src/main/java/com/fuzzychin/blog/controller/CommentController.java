@@ -63,7 +63,7 @@ public class CommentController {
     }
 
     @RequestMapping(path = "/{commentId}", method = RequestMethod.GET)
-    public ResponseEntity<?> queryCommentByCommentId(@PathVariable("commentId")Long commentId){
+    public ResponseEntity<?> getComment(@PathVariable("commentId")Long commentId){
         return ResponseEntity.ok(commentService.findOneComment(commentId));
     }
 

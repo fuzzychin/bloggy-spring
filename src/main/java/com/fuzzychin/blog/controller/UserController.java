@@ -66,4 +66,8 @@ public class UserController {
         }
     }
 
+    @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getUser(@PathVariable("userId") Long userId){
+        return ResponseEntity.ok(userService.findOneUser(userId));
+    }
 }

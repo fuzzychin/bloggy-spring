@@ -12,9 +12,9 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    List<Post> findByTags(List<Tag> tags);
-
     Post findByComments(List<Comment> comment);
+
+    List<Post> findByTags(List<Tag> tags);
 
     List<Post> findByUserId(long userId);
 

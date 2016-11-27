@@ -34,24 +34,6 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public List<Post> findAll(Tag tag) {
-        return postRepository.findByTags(new ArrayList<Tag>(1){{add(tag);}});
-    }
-
-    public List<Post> findAll(List<Tag> tags) {
-        return postRepository.findByTags(tags);
-    }
-
-    public Post findAll(Comment comment) { return postRepository.findByComments(new ArrayList<Comment>(1){
-        {add(comment);}}); }
-
-    //originally named findAll but got an error saying it had same erasure as findAll(List<Tag> tags)
-    public Post findAllComments(List<Comment> comments) { return postRepository.findByComments(comments);}
-
-    public Post findOnePost(long postId) {
-        return postRepository.findOne(postId);
-    }
-
     public void deletePost(Post post) {
         postRepository.delete(post);
     }
@@ -60,11 +42,33 @@ public class PostService {
         return postRepository.save(post);
     }
 
+    public Post findOnePost(long postId) {
+        return postRepository.findOne(postId);
+    }
+
+    public Post findOnePost(Comment comment) { return postRepository.findByComments(new ArrayList<Comment>(1){
+        {add(comment);}}); }
+
+    public Post findOnePostByComments(List<Comment> comments) { return postRepository.findByComments(comments);}
+
+    public List<Post> findPostsByUserId(long userId) {return postRepository.findByUserId(userId); }
+
+    public List<Post> findAll(Tag tag) {
+        return postRepository.findByTags(new ArrayList<Tag>(1){{add(tag);}});
+    }
+
+    public List<Post> findAll(List<Tag> tags) {
+        return postRepository.findByTags(tags);
+    }
+
+
+
+
+
     public List<Post> save(List<Post> posts) {
         return postRepository.save(posts);
     }
 
-    public List<Post> findPostsByUserId(long userId) {return postRepository.findByUserId(userId); }
 
 
 }

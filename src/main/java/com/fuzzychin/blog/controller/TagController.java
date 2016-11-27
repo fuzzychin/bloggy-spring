@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -24,7 +26,10 @@ public class TagController {
     public TagService tagService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> queryTag(){
+    public ResponseEntity<?> queryTag(@RequestParam(required = false, name = "posts") Post[] posts){
+        if(posts != null && posts.length > 0){
+            return ResponseEntity.ok(tagService.findAllByPosts(Arrays.asList(posts)));
+        }
         return ResponseEntity.ok(tagService.findAll());
     }
 
@@ -63,4 +68,8 @@ public class TagController {
         }
     }
 
+    @RequestMapping(path = "/{tagId}", method = RequestMethod.GET)
+    ResponseEntity<?> getTag(@PathVariable("tagId") Long tagId){
+        return ResponseEntity.ok(tagService.findOneTag(tagId));
+    }
 }
