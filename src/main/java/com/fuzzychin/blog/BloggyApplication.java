@@ -70,6 +70,35 @@ class SeedPosts implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		for (int i=0; i<10; i++) {
+			Post post = new Post();
+			post.setTitle(String.format("%d%s", i, "Seeded Fuzzy Title"));
+			post.setBody(String.format("%d%s", i, "Seeded Fuzzy Post"));
+			post.setUser(userRepository.findOne((long) 1));
+			postRepository.save(post);
+		}
+
+		for (int i=0; i<10; i++) {
+			Post post = new Post();
+			post.setTitle(String.format("%d%s", i, "Seeded Pinky Title"));
+			post.setBody(String.format("%d%s", i, "Seeded Pinky Post"));
+			post.setUser(userRepository.findOne((long) 2));
+			postRepository.save(post);
+		}
+	}
+}
+
+/*@Component
+class SeedPosts implements CommandLineRunner{
+
+	@Autowired
+	private PostRepository postRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	public void run(String... args) throws Exception {
+		for (int i=0; i<10; i++) {
 			Post post = new Post(
 			String.format("%d%s", i, "Seeded Fuzzy Title"),
 			String.format("%d%s", i, "Seeded Fuzzy Post"),
@@ -87,9 +116,9 @@ class SeedPosts implements CommandLineRunner{
 			postRepository.save(post);
 		}
 	}
-}
+}*/
 
-/*@Component
+@Component
 class SeedTags implements CommandLineRunner {
 
 	@Autowired
@@ -112,12 +141,9 @@ class SeedTags implements CommandLineRunner {
 			tagRepository.save(tag);
 		}
 	}
-}*/
+}
 
-
-// I don't understand why the TAGS table isn't seeding with POST_ID???
-//The @Component seedComments is very similar code and the COMMENT table has a POST_ID and USER_ID
-@Component
+/*@Component
 class SeedTags implements CommandLineRunner {
 
 	@Autowired
@@ -141,9 +167,33 @@ class SeedTags implements CommandLineRunner {
 			tagRepository.save(tag);
 		}
 	}
-}
+}*/
 
 @Component
+class seedComments implements CommandLineRunner{
+
+	@Autowired
+	private PostRepository postRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private CommentRepository commentRepository;
+
+ 	@Override
+	public void run(String... args) throws Exception{
+		for(int i=0; i<10; i++){
+			Comment comment = new Comment();
+			comment.setBody(String.format("%d%s", i, "CommentSeed"));
+			comment.setUser(userRepository.findOne((long) 1));
+			comment.setPost(postRepository.findOne((long) 1));
+			commentRepository.save(comment);
+		}
+	}
+}
+
+/*@Component
 class seedComments implements CommandLineRunner{
 
 	@Autowired
@@ -166,4 +216,4 @@ class seedComments implements CommandLineRunner{
 			commentRepository.save(comment);
 		}
 	}
-}
+}*/

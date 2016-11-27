@@ -1,5 +1,6 @@
 package com.fuzzychin.blog.controller;
 
+import com.fuzzychin.blog.bean.Post;
 import com.fuzzychin.blog.bean.Tag;
 import com.fuzzychin.blog.service.TagService;
 import org.slf4j.Logger;
@@ -9,6 +10,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
@@ -59,6 +62,5 @@ public class TagController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
 
 }

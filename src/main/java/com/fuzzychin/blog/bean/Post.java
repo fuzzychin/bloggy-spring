@@ -1,5 +1,7 @@
 package com.fuzzychin.blog.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -88,6 +90,7 @@ public class Post {
         this.body = body;
     }
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }
@@ -96,6 +99,7 @@ public class Post {
         this.user = user;
     }
 
+    @JsonIgnore
     public List<Comment> getComments() {
         return comments;
     }
@@ -104,6 +108,7 @@ public class Post {
         this.comments = comments;
     }
 
+    @JsonIgnore
     public List<Tag> getTags() {
         return tags;
     }

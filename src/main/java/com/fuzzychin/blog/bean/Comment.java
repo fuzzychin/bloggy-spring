@@ -1,5 +1,7 @@
 package com.fuzzychin.blog.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.persistence.criteria.Fetch;
 import java.util.Date;
@@ -72,6 +74,7 @@ public class Comment {
         this.body = body;
     }
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }
@@ -80,6 +83,7 @@ public class Comment {
         this.user = user;
     }
 
+    @JsonIgnore
     public Post getPost() {
         return post;
     }

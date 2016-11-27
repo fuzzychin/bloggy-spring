@@ -1,8 +1,6 @@
 package com.fuzzychin.blog.controller;
 
 import com.fuzzychin.blog.bean.Comment;
-import com.fuzzychin.blog.bean.Post;
-import com.fuzzychin.blog.bean.User;
 import com.fuzzychin.blog.service.CommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
