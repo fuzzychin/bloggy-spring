@@ -1,5 +1,8 @@
 package com.fuzzychin.blog.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -17,6 +20,7 @@ public class Tag {
     @Column(nullable = false)
     private String content;
 
+    @JsonBackReference
     @ManyToMany
     private List<Post> posts;
 
