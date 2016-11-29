@@ -1,6 +1,8 @@
 package com.fuzzychin.blog.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.persistence.criteria.Fetch;
@@ -18,9 +20,11 @@ public class Comment {
     @Column(nullable = false)
     private String body;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
@@ -74,7 +78,6 @@ public class Comment {
         this.body = body;
     }
 
-    @JsonIgnore
     public User getUser() {
         return user;
     }
@@ -83,7 +86,6 @@ public class Comment {
         this.user = user;
     }
 
-    @JsonIgnore
     public Post getPost() {
         return post;
     }
