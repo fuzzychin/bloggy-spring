@@ -1,6 +1,8 @@
 package com.fuzzychin.blog.bean;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,13 +22,16 @@ public class Post {
     @Column(nullable = false)
     private String body;
 
+    @JsonManagedReference
     @ManyToOne
     private User user;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
-    @ManyToMany
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "posts")
     private List<Tag> tags;
 
     @Column(name = "created_on", nullable = false, updatable = false)
@@ -90,7 +95,6 @@ public class Post {
         this.body = body;
     }
 
-    @JsonIgnore
     public User getUser() {
         return user;
     }
@@ -99,7 +103,6 @@ public class Post {
         this.user = user;
     }
 
-    @JsonIgnore
     public List<Comment> getComments() {
         return comments;
     }
@@ -108,7 +111,6 @@ public class Post {
         this.comments = comments;
     }
 
-    @JsonIgnore
     public List<Tag> getTags() {
         return tags;
     }
