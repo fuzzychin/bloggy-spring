@@ -87,37 +87,6 @@ class SeedPosts implements CommandLineRunner{
 	}
 }
 
-/*@Component
-class SeedPosts implements CommandLineRunner{
-
-	@Autowired
-	private PostRepository postRepository;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Override
-	public void run(String... args) throws Exception {
-		for (int i=0; i<10; i++) {
-			Post post = new Post(
-			String.format("%d%s", i, "Seeded Fuzzy Title"),
-			String.format("%d%s", i, "Seeded Fuzzy Post"),
-			userRepository.findOne((long) 1)
-			);
-			postRepository.save(post);
-		}
-
-		for (int i=0; i<10; i++) {
-			Post post = new Post(
-			String.format("%d%s", i, "Seeded Pinky Title"),
-			String.format("%d%s", i, "Seeded Pinky Post"),
-			userRepository.findOne((long) 2)
-			);
-			postRepository.save(post);
-		}
-	}
-}*/
-
 @Component
 class SeedTags implements CommandLineRunner {
 
@@ -143,32 +112,6 @@ class SeedTags implements CommandLineRunner {
 	}
 }
 
-/*@Component
-class SeedTags implements CommandLineRunner {
-
-	@Autowired
-	private TagRepository tagRepository;
-
-	@Autowired
-	private PostRepository postRepository;
-
-	@Override
-	public void run(String... args) throws Exception {
-		List<Post> posts = new ArrayList<>();
-		posts.add(postRepository.findOne((long) 1));
-		posts.add(postRepository.findOne((long) 2));
-
-		for (int i = 0; i < 10; i++) {
-			Tag tag = new Tag(
-				String.format("%d%s", i, "TagDescSeed"),
-				String.format("%d%s", i, "TagContentSeed"),
-				posts
-			);
-			tagRepository.save(tag);
-		}
-	}
-}*/
-
 @Component
 class seedComments implements CommandLineRunner{
 
@@ -192,28 +135,3 @@ class seedComments implements CommandLineRunner{
 		}
 	}
 }
-
-/*@Component
-class seedComments implements CommandLineRunner{
-
-	@Autowired
-	private PostRepository postRepository;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private CommentRepository commentRepository;
-
- 	@Override
-	public void run(String... args) throws Exception{
-		for(int i=0; i<10; i++){
-			Comment comment = new Comment(
-					String.format("%d%s", i, "CommentSeed"),
-					userRepository.findOne((long) 1),
-					postRepository.findOne((long) 1)
-			);
-			commentRepository.save(comment);
-		}
-	}
-}*/
