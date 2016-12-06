@@ -23,7 +23,7 @@ public class CommentController {
     public ResponseEntity<?> queryComment(@RequestParam(required = false, name = "userId") Long userId,
                                           @RequestParam(required = false, name = "postId") Long postId) {
         if (userId != null){
-            ResponseEntity.ok(commentService.findAllByUser(userId));
+            ResponseEntity.ok(commentService.findAllByUserId(userId));
         } else if (postId != null){
             ResponseEntity.ok(commentService.findAllByPost(postId));
         }

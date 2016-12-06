@@ -84,7 +84,7 @@ public class PostController {
     //difference between
     @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
     public ResponseEntity<?> queryPostsByUserId(@PathVariable("userId") Long userId){
-        return ResponseEntity.ok(postService.findPostsByUserId(userId));
+        return ResponseEntity.ok(postService.findAllByUserId(userId));
     }
 
 }

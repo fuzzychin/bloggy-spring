@@ -51,7 +51,7 @@ public class PostService {
 
     public Post findOnePostByComments(List<Comment> comments) { return postRepository.findByComments(comments);}
 
-    public List<Post> findPostsByUserId(long userId) {return postRepository.findByUserId(userId); }
+    public List<Post> findAllByUserId(long userId) {return postRepository.findByUserId(userId); }
 
     public List<Post> findAll(Tag tag) {
         return postRepository.findByTags(new ArrayList<Tag>(1){{add(tag);}});

@@ -1,7 +1,8 @@
 package com.fuzzychin.blog.controller;
 
-import com.fuzzychin.blog.bean.Post;
 import com.fuzzychin.blog.bean.User;
+import com.fuzzychin.blog.service.CommentService;
+import com.fuzzychin.blog.service.PostService;
 import com.fuzzychin.blog.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
 
 
 @RestController
@@ -21,6 +20,12 @@ public class UserController {
 
     @Autowired
     public UserService userService;
+
+    @Autowired
+    public PostService postService;
+
+    @Autowired
+    public CommentService commentService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> queryUser() {
@@ -69,5 +74,15 @@ public class UserController {
     @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
     public ResponseEntity<?> getUser(@PathVariable("userId") Long userId){
         return ResponseEntity.ok(userService.findOneUser(userId));
+    }
+
+    @RequestMapping(path = "/{userId}/posts", method = RequestMethod.GET)
+    public ResponseEntity<?> queryAllPostsByUser(@PathVariable("userId") Long userId){
+        return ResponseEntity.ok(postService.findAllByUserId(userId));
+    }
+
+    @RequestMapping(path = "/{userId}/comments", method = RequestMethod.GET)
+    public ResponseEntity<?> queryAllCommentsByUser(@PathVariable("userId") Long userId){
+        return ResponseEntity.ok(commentService.findAllByUserId(userId));
     }
 }

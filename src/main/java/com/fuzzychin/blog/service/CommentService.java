@@ -1,6 +1,7 @@
 package com.fuzzychin.blog.service;
 
 import com.fuzzychin.blog.bean.Comment;
+import com.fuzzychin.blog.bean.Post;
 import com.fuzzychin.blog.repository.CommentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class CommentService {
 
     public Comment  findOneComment(long commentId) {return commentRepository.findOne(commentId);}
 
-    public List<Comment> findAllByUser(long userId) {
+    public List<Comment> findAllByUserId(long userId) {
         return commentRepository.findByUserId(userId);
     }
 
