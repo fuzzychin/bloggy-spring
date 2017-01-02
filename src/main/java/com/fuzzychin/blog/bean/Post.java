@@ -1,8 +1,7 @@
 package com.fuzzychin.blog.bean;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fuzzychin.blog.Slug;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,6 +17,9 @@ public class Post {
 
     @Column(nullable = false)
     private String title;
+
+    @Column
+    private String slugTitle;
 
     @Column(nullable = false)
     private String body;
@@ -48,23 +50,6 @@ public class Post {
 
     public Post(){};
 
-    public Post(String title, String body, User user) {
-        this.title = title;
-        this.body = body;
-        this.user = user;
-    }
-
-    public Post(long id, String title, String body, User user, List<Comment> comments, List<Tag> tags, Date createdOn, Date modifiedOn, Date deletedOn) {
-        this.id = id;
-        this.title = title;
-        this.body = body;
-        this.user = user;
-        this.comments = comments;
-        this.tags = tags;
-        this.createdOn = createdOn;
-        this.modifiedOn = modifiedOn;
-        this.deletedOn = deletedOn;
-    }
 
     @PrePersist
     private void onSave(){
@@ -73,6 +58,10 @@ public class Post {
         }
 
         this.modifiedOn = new Date();
+
+        Slug slug = new Slug();
+        this.slugTitle = slug.dasher(getTitle());
+
     }
 
     public long getId() {
@@ -85,6 +74,10 @@ public class Post {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSlugTitle() {
+        return slugTitle;
     }
 
     public String getBody() {

@@ -27,15 +27,6 @@ public class User {
 
     public User(){};
 
-    public User(long id, String userName, String firstName, String lastName, String emailAddress, List<Post> posts,
-                List<Comment> comments) {
-        this.id = id;
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailAddress = emailAddress;
-
-    }
 
     public long getId() {
         return id;

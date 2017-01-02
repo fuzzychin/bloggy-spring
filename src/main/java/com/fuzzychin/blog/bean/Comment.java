@@ -41,21 +41,6 @@ public class Comment {
 
     public Comment(){};
 
-    public Comment(long id, String body, User user, Post post, Date createdOn, Date modifiedOn, Date deletedOn) {
-        this.id = id;
-        this.body = body;
-        this.user = user;
-        this.post = post;
-        this.createdOn = createdOn;
-        this.modifiedOn = modifiedOn;
-        this.deletedOn = deletedOn;
-    }
-    public Comment(String body, User user, Post post) {
-        this.body = body;
-        this.user = user;
-        this.post = post;
-    }
-
     @PrePersist
     private void onSave(){
         if(this.createdOn==null){

@@ -85,4 +85,5 @@ public class UserController {
     public ResponseEntity<?> queryAllCommentsByUser(@PathVariable("userId") Long userId){
         return ResponseEntity.ok(commentService.findAllByUserId(userId));
     }
+
 }

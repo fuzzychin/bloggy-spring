@@ -26,12 +26,6 @@ public class Tag {
 
     public Tag(){};
 
-    public Tag(String descriptor, String content, List<Post> posts) {
-        this.descriptor = descriptor;
-        this.content = content;
-        this.posts = posts;
-    }
-
     public long getId() {
         return id;
     }
